@@ -1,5 +1,7 @@
 # Sokoban Java
 
+![Build & Test](https://github.com/jdhunterae/sokoban-java/actions/workflows/gradle-test.yml/badge.svg)
+
 A Java implementation of the classic puzzle game **Sokoban**, built using `JFrame` and `Swing`. Navigate a player through tightly packed maps, pushing crates onto designated goal tiles with minimal moves.
 
 ---
