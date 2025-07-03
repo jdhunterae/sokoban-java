@@ -1,0 +1,70 @@
+// Sokoban Game - build.gradle
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.sokoban.game'
+version = '1.0.0'
+
+// Java compatibility settings
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// Source and resource directories (uses defaults, but shown explicitly)
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
+// Repository for dependencies
+repositories {
+    mavenCentral()
+}
+
+// Project dependencies
+dependencies {
+    // Logging (optional, useful for future debugging or analytics)
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    // Testing with JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+// Enable JUnit 5 test platform
+test {
+    useJUnitPlatform()
+}
+
+// Application entry point
+application {
+    mainClass = 'com.sokoban.game.Main'
+}
+
+// Fat JAR configuration (standalone runnable JAR)
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+// Task specifically for the level analyzer
+task runAnalyzer(type: JavaExec) {
+    group = "application"
+    description = "Run the level analysis tool to grade level solvability and difficulty."
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "com.sokoban.game.analysis.LevelGrader"
+}

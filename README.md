@@ -16,7 +16,7 @@ A Java implementation of the classic puzzle game **Sokoban**, built using `JFram
 
 ## Requirements
 
-- Java 22+
+- Java 21+
 - Gradle (or use `./gradlew` wrapper)
 
 ---
